@@ -10,9 +10,7 @@ public class Coin {
     private double volume;
     private double volumePercent;
     private long timestamp;
-    private String displayTimestamp;
-    private boolean success;
-    private String time;
+    private String displaySymbol;
 
     public Coin() {
     }
@@ -81,28 +79,27 @@ public class Coin {
         this.timestamp = timestamp;
     }
 
-    public String getDisplayTimestamp() {
-        return displayTimestamp;
+    public String getDisplaySymbol() {
+        return displaySymbol;
     }
 
-    public void setDisplayTimestamp(String displayTimestamp) {
-        this.displayTimestamp = displayTimestamp;
+    public void setDisplaySymbol(String displaySymbol) {
+        this.displaySymbol = displaySymbol;
     }
 
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+    @Override
+    public String toString() {
+        return "Coin{" +
+                "ask=" + ask +
+                ", bid=" + bid +
+                ", last=" + last +
+                ", high=" + high +
+                ", low=" + low +
+                ", volume=" + volume +
+                ", volumePercent=" + volumePercent +
+                ", timestamp=" + timestamp +
+                ", displaySymbol='" + displaySymbol + '\'' +
+                '}';
     }
 }
 

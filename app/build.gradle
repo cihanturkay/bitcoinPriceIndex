@@ -56,9 +56,14 @@ dependencies {
     //Graph
     implementation "com.github.PhilJay:MPAndroidChart:$rootProject.mpChartVersion"
 
+    // Lifecycle components
+    implementation "android.arch.lifecycle:extensions:$rootProject.archVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archVersion"
+
     // Retrofit REST client http://square.github.io/retrofit/
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
 
     // Firebase
     //implementation "com.google.firebase:firebase-core:$rootProject.firebaseVersion"

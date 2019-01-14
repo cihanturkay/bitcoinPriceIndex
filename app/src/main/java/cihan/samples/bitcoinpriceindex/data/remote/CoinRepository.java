@@ -3,6 +3,7 @@ package cihan.samples.bitcoinpriceindex.data.remote;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class CoinRepository {
     //TODO:Offline mode
     public LiveData<Resource<List<CoinHistory>>> getCoinHistory(String symbolSet, String coin, String currency, String period) {
         final MutableLiveData<Resource<List<CoinHistory>>> coinHistory = new MutableLiveData<>();
-
+        coinHistory.setValue(Resource.loading(null));
         bitcoinAverageApi.getCoinDaily(symbolSet, coin, currency, period).enqueue(new Callback<List<CoinHistory>>() {
 
             @Override
@@ -52,7 +53,7 @@ public class CoinRepository {
     //TODO:Offline mode
     public LiveData<Resource<Coin>> getCoinLast(String symbolSet, String coin, String currency) {
         final MutableLiveData<Resource<Coin>> coinLast = new MutableLiveData<>();
-
+        coinLast.setValue(Resource.loading(null));
         bitcoinAverageApi.getCoin(symbolSet, coin, currency).enqueue(new Callback<Coin>() {
 
             @Override
