@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_main"
+        android:id="@+id/menu_dashboard"
         android:enabled="true"
         android:icon="@drawable/ic_graph_on"
         android:title="Main"

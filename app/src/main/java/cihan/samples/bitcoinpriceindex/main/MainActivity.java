@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         ((MainApp) getApplication()).getMainComponent().inject(MainActivity.this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.navigation.setOnNavigationItemSelectedListener(this);
-        binding.navigation.setSelectedItemId(R.id.menu_main);
+        binding.navigation.setSelectedItemId(R.id.menu_dashboard);
     }
 
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         menuItem.setChecked(true);
 
         switch (menuItem.getItemId()) {
-            case R.id.menu_main:
+            case R.id.menu_dashboard:
                 replaceFragment(DashboardFragment.newInstance(), false);
                 break;
             case R.id.menu_list:
