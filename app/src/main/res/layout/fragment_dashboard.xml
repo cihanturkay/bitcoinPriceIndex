@@ -24,37 +24,57 @@
         android:layout_height="match_parent"
         tools:context=".main.MainActivity">
 
-        <Spinner
-            android:id="@+id/spinner_markets"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:drawSelectorOnTop="true"
-            android:entries="@array/markets"
-            android:textColor="@android:color/white"
-            app:layout_constraintEnd_toStartOf="@+id/spinner_coins"
+        <View
+            android:id="@+id/tool"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="12dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_gradient_hot"
+            android:elevation="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
-            android:id="@+id/spinner_coins"
-            android:layout_width="0dp"
+            android:id="@+id/spinner_markets"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:drawSelectorOnTop="true"
+            android:elevation="4dp"
+            android:entries="@array/markets"
+            android:paddingStart="8dp"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toStartOf="@+id/spinner_coins"
+            app:layout_constraintStart_toStartOf="@+id/tool"
+            app:layout_constraintTop_toTopOf="@+id/tool" />
+
+        <Spinner
+            android:id="@+id/spinner_coins"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:drawSelectorOnTop="true"
+            android:elevation="4dp"
             android:entries="@array/coins"
+            android:spinnerMode="dropdown"
             app:layout_constraintEnd_toStartOf="@+id/spinner_currencies"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/spinner_markets"
+            app:layout_constraintTop_toTopOf="@+id/tool" />
 
         <Spinner
             android:id="@+id/spinner_currencies"
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
+            android:layout_marginTop="12dp"
             android:drawSelectorOnTop="true"
+            android:elevation="4dp"
             android:entries="@array/currencies"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toEndOf="@+id/tool"
+            app:layout_constraintStart_toEndOf="@+id/spinner_coins"
+            app:layout_constraintTop_toTopOf="@+id/tool" />
 
         <include
             layout="@layout/dashboard_coin_last"

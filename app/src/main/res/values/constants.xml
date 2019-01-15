@@ -16,8 +16,8 @@
 
 
     <string-array name="markets">
-        <item>global</item>
-        <item>local</item>
+        <item>GLOBAL</item>
+        <item>LOCAL</item>
     </string-array>
 
 </resources>
