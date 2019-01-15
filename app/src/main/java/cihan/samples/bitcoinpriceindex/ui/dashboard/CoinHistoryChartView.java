@@ -26,6 +26,10 @@ import cihan.samples.bitcoinpriceindex.data.model.CoinHistory;
 public class CoinHistoryChartView extends LineChart {
 
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+    private int periodIndex = 0;
+    private List<CoinHistory> historyList;
+    private String currency;
+    private HistoryChartMarker historyChartMarker;
 
     public CoinHistoryChartView(Context context) {
         super(context);
@@ -42,6 +46,7 @@ public class CoinHistoryChartView extends LineChart {
     @Override
     protected void init() {
         super.init();
+        historyChartMarker = new HistoryChartMarker(getContext(), R.layout.histoy_chart_marker);
         Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.open_sans_light);
 
         setNoDataText(".....");
@@ -55,29 +60,42 @@ public class CoinHistoryChartView extends LineChart {
         getAxisLeft().setTypeface(typeface);
         getAxisLeft().setDrawAxisLine(false);
 
-        setTouchEnabled(false);
         getLegend().setEnabled(false);
         getDescription().setEnabled(false);
         setExtraOffsets(0, 0, 0, 10);
 
         getAxisLeft().setGranularityEnabled(true);
 
-//        getXAxis().setValueFormatter(new IAxisValueFormatter() {
-//
-//            private final SimpleDateFormat mFormat = new SimpleDateFormat("dd MMM HH:mm", Locale.ENGLISH);
-//
-//            @Override
-//            public String getFormattedValue(float value, AxisBase axis) {
-//                long millis = TimeUnit.HOURS.toMillis((long) value);
-//                return mFormat.format(new Date(millis));
-//            }
-//
-//        });
+        getXAxis().setValueFormatter((value, axis) -> {
+            int position = (int) value;
+            if (historyList != null && position < historyList.size()) {
+                String time = historyList.get((int) value).getTime();
+
+                switch (periodIndex) {
+                    case 0:
+                        return time.substring(11, 16);
+                    case 1:
+                        return time.substring(5, 10);
+                    case 2:
+                        return time.substring(0, 7);
+                }
+            }
+            return "";
+        });
+
+
+        historyChartMarker.setChartView(this);
+        setMarker(historyChartMarker);
     }
 
     public void setCoinData(List<CoinHistory> coinHistoryList) {
-        if (coinHistoryList == null || coinHistoryList.size() == 0)
+        historyList = coinHistoryList;
+
+        if (coinHistoryList == null || coinHistoryList.size() == 0) {
+            clear();
             return;
+        }
+
 
         ArrayList<Entry> values = new ArrayList<>();
         Collections.reverse(coinHistoryList);
@@ -85,6 +103,7 @@ public class CoinHistoryChartView extends LineChart {
         for (int i = 0; i < coinHistoryList.size(); i++) {
             CoinHistory item = coinHistoryList.get(i);
             Entry entry = new Entry(i, (float) item.getAverage());
+            entry.setData(item);
             values.add(entry);
         }
 
@@ -110,5 +129,27 @@ public class CoinHistoryChartView extends LineChart {
         setData(data);
         notifyDataSetChanged();
         invalidate();
+    }
+
+    public void setPeriodIndex(int periodIndex) {
+        this.periodIndex = periodIndex;
+    }
+
+    public List<CoinHistory> getHistoryList() {
+        return historyList;
+    }
+
+    public void setHistoryList(List<CoinHistory> historyList) {
+        this.historyList = historyList;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+        historyChartMarker.setCurrency(currency);
+
     }
 }

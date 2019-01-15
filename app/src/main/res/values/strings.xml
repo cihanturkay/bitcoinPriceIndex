@@ -6,4 +6,7 @@
     <string name="bid">Bid</string>
     <string name="high">High</string>
     <string name="today_open">Today Open</string>
+    <string name="day">Last 24hr</string>
+    <string name="month">Last 30 days</string>
+    <string name="all_time">All Time</string>
 </resources>

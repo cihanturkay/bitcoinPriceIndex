@@ -23,10 +23,10 @@ public class DashboardViewModel extends AndroidViewModel {
     CoinRepository coinRepository;
 
     private final MutableLiveData<Boolean> refresh = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> refreshChart = new MutableLiveData<>();
     private String currency;
     private String coin;
-    private String period = "monthly";
-    private String market;
+    private String period;
 
     private LiveData<Resource<List<CoinHistory>>> coinHistory;
     private LiveData<Resource<Coin>> coinLast;
@@ -35,7 +35,7 @@ public class DashboardViewModel extends AndroidViewModel {
         super(application);
         ((MainApp) application.getApplicationContext()).getMainComponent().inject(this);
         coinLast = Transformations.switchMap(refresh, input -> coinRepository.getCoinLast("global", coin, currency));
-        coinHistory = Transformations.switchMap(refresh, input -> coinRepository.getCoinHistory("global", coin, currency, period));
+        coinHistory = Transformations.switchMap(refreshChart, input -> coinRepository.getCoinHistory("global", coin, currency, period));
     }
 
     public LiveData<Resource<List<CoinHistory>>> getCoinHistory() {
@@ -46,21 +46,28 @@ public class DashboardViewModel extends AndroidViewModel {
         return coinLast;
     }
 
-    public void refresh() {
+    public void refreshLast() {
         refresh.setValue(true);
+    }
+
+    public void refreshChart() {
+        refreshChart.setValue(true);
     }
 
     public void setCurrency(String currency) {
         this.currency = currency;
-        refresh();
+        refreshLast();
+        refreshChart();
     }
 
     public void setCoin(String coin) {
         this.coin = coin;
-        refresh();
+        refreshLast();
+        refreshChart();
     }
 
     public void setPeriod(String period) {
         this.period = period;
+        refreshChart();
     }
 }

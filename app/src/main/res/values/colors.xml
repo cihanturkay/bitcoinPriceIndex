@@ -10,5 +10,6 @@
 
     <color name="pink">#ee0979</color>
     <color name="orange">#ff6a00</color>
+    <color name="soft_bg_color">#CCD8D8D8</color>
 
 </resources>

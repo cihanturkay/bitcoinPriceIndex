@@ -1,29 +1,27 @@
 package cihan.samples.bitcoinpriceindex.ui.dashboard;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import cihan.samples.bitcoinpriceindex.data.model.Coin;
-import cihan.samples.bitcoinpriceindex.data.model.CoinHistory;
-import cihan.samples.bitcoinpriceindex.data.remote.Resource;
+import cihan.samples.bitcoinpriceindex.data.remote.CoinRepository;
 import cihan.samples.bitcoinpriceindex.databinding.FragmentDashboardBinding;
 import cihan.samples.bitcoinpriceindex.ui.binding.ItemSelectedListenerAdapter;
 
 
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends Fragment implements TabLayout.BaseOnTabSelectedListener {
 
     private FragmentDashboardBinding binding;
     private DashboardViewModel viewModel;
@@ -43,9 +41,11 @@ public class DashboardFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         viewModel = ViewModelProviders.of(this).get(DashboardViewModel.class);
+        viewModel.setPeriod(CoinRepository.HISTORY_PERIODS[0]);
         loadCoinLast();
         loadCoinHistory();
         setupParameters();
+        binding.tabs.addOnTabSelectedListener(this);
         return binding.getRoot();
     }
 
@@ -79,6 +79,7 @@ public class DashboardFragment extends Fragment {
                 super.onItemSelected(parent, view, position, id);
                 String selectedValue = (String) binding.spinnerCurrencies.getItemAtPosition(position);
                 if (selectedValue != null) {
+                    binding.chart.setCurrency(selectedValue);
                     viewModel.setCurrency(selectedValue);
                     binding.setCurrencyText(selectedValue);
                 }
@@ -91,7 +92,7 @@ public class DashboardFragment extends Fragment {
         @Override
         public void run() {
             Log.d("DashboardFragment", "refreshing");
-            viewModel.refresh();
+            viewModel.refreshLast();
             handler.postDelayed(refreshRunnable, TimeUnit.SECONDS.toMillis(REFRESH_INTERVAL_SECONDS));
         }
     };
@@ -109,41 +110,54 @@ public class DashboardFragment extends Fragment {
     }
 
     private void loadCoinHistory() {
-        viewModel.getCoinHistory().observe(this, new Observer<Resource<List<CoinHistory>>>() {
-            @Override
-            public void onChanged(@Nullable Resource<List<CoinHistory>> listResource) {
-                if (listResource != null) {
-                    switch (listResource.status) {
-                        case ERROR:
-                            break;
-                        case LOADING:
-                            break;
-                        case SUCCESS:
-                            binding.chart.setCoinData(listResource.data);
-                            break;
-                    }
+        viewModel.getCoinHistory().observe(this, listResource -> {
+            if (listResource != null) {
+                switch (listResource.status) {
+                    case ERROR:
+                        Toast.makeText(requireContext(), listResource.message, Toast.LENGTH_LONG).show();
+                        break;
+                    case LOADING:
+                        break;
+                    case SUCCESS:
+                        binding.chart.highlightValue(null);
+                        binding.chart.setCoinData(listResource.data);
+                        break;
                 }
             }
         });
     }
 
     private void loadCoinLast() {
-        viewModel.getCoinLast().observe(this, new Observer<Resource<Coin>>() {
-            @Override
-            public void onChanged(@Nullable Resource<Coin> coinResource) {
-                if (coinResource != null) {
-                    switch (coinResource.status) {
-                        case ERROR:
-                            break;
-                        case LOADING:
-                            break;
-                        case SUCCESS:
-                            binding.setCoin(coinResource.data);
-                            Log.d("DashboardFragment", "coin :: " + coinResource.data);
-                            break;
-                    }
+        viewModel.getCoinLast().observe(this, coinResource -> {
+            if (coinResource != null) {
+                switch (coinResource.status) {
+                    case ERROR:
+                        Toast.makeText(requireContext(), coinResource.message, Toast.LENGTH_LONG).show();
+                        break;
+                    case LOADING:
+                        break;
+                    case SUCCESS:
+                        binding.setCoin(coinResource.data);
+                        Log.d("DashboardFragment", "coin :: " + coinResource.data);
+                        break;
                 }
             }
         });
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        binding.chart.setPeriodIndex(tab.getPosition());
+        viewModel.setPeriod(CoinRepository.HISTORY_PERIODS[tab.getPosition()]);
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
     }
 }

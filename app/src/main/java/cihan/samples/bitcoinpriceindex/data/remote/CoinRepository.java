@@ -3,7 +3,6 @@ package cihan.samples.bitcoinpriceindex.data.remote;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.util.List;
 
@@ -19,6 +18,7 @@ import retrofit2.Response;
 @Singleton
 public class CoinRepository {
 
+    public static String[] HISTORY_PERIODS = {"daily", "monthly", "alltime"};
     private final BitcoinAverageApi bitcoinAverageApi;
 
     @Inject
