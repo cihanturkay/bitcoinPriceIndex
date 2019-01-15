@@ -56,7 +56,7 @@ public class DashboardFragment extends Fragment {
                 super.onItemSelected(parent, view, position, id);
                 String selectedValue = (String) binding.spinnerMarkets.getItemAtPosition(position);
                 if (selectedValue != null) {
-
+                    //TODO for other markets
                 }
             }
         });

@@ -3,8 +3,12 @@
 
     <string-array name="coins">
         <item>BTC</item>
-        <item>LTC</item>
+        <item>BCH</item>
         <item>ETH</item>
+        <item>XMR</item>
+        <item>XRP</item>
+        <item>LTC</item>
+        <item>ZEC</item>
     </string-array>
 
 
