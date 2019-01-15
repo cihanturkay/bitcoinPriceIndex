@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -19,6 +20,7 @@ import cihan.samples.bitcoinpriceindex.data.model.Coin;
 import cihan.samples.bitcoinpriceindex.data.model.CoinHistory;
 import cihan.samples.bitcoinpriceindex.data.remote.Resource;
 import cihan.samples.bitcoinpriceindex.databinding.FragmentDashboardBinding;
+import cihan.samples.bitcoinpriceindex.ui.binding.ItemSelectedListenerAdapter;
 
 
 public class DashboardFragment extends Fragment {
@@ -41,14 +43,48 @@ public class DashboardFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         viewModel = ViewModelProviders.of(this).get(DashboardViewModel.class);
-        viewModel.setCoin("BTC");
-        viewModel.setCurrency("EUR");
-        viewModel.setPeriod("daily");
-        binding.setCurrencySymbol("€");
-        binding.setCoinSymbol("BTC");
         loadCoinLast();
         loadCoinHistory();
+        setupParameters();
         return binding.getRoot();
+    }
+
+    private void setupParameters() {
+        binding.spinnerMarkets.setOnItemSelectedListener(new ItemSelectedListenerAdapter() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                super.onItemSelected(parent, view, position, id);
+                String selectedValue = (String) binding.spinnerMarkets.getItemAtPosition(position);
+                if (selectedValue != null) {
+
+                }
+            }
+        });
+
+        binding.spinnerCoins.setOnItemSelectedListener(new ItemSelectedListenerAdapter() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                super.onItemSelected(parent, view, position, id);
+                String selectedValue = (String) binding.spinnerCoins.getItemAtPosition(position);
+                if (selectedValue != null) {
+                    viewModel.setCoin(selectedValue);
+                    binding.setCoinText(selectedValue);
+                }
+            }
+        });
+
+        binding.spinnerCurrencies.setOnItemSelectedListener(new ItemSelectedListenerAdapter() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                super.onItemSelected(parent, view, position, id);
+                String selectedValue = (String) binding.spinnerCurrencies.getItemAtPosition(position);
+                if (selectedValue != null) {
+                    viewModel.setCurrency(selectedValue);
+                    binding.setCurrencyText(selectedValue);
+                }
+            }
+        });
+
     }
 
     private Runnable refreshRunnable = new Runnable() {
@@ -108,6 +144,5 @@ public class DashboardFragment extends Fragment {
                 }
             }
         });
-
     }
 }

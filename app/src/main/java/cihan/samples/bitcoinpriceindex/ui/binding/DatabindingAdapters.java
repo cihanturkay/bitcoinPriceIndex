@@ -4,6 +4,9 @@ import android.databinding.BindingAdapter;
 import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
+import java.util.Currency;
+
 import cihan.samples.bitcoinpriceindex.R;
 import cihan.samples.bitcoinpriceindex.data.model.Coin;
 
@@ -12,8 +15,12 @@ public class DatabindingAdapters {
 
     @BindingAdapter({"value", "currency"})
     public static void setDoubleValue(TextView textView, double value, String currency) {
-        String text = String.format("%.2f", value) + currency;
-        textView.setText(text);
+        if (currency != null) {
+            NumberFormat format = NumberFormat.getCurrencyInstance();
+            format.setCurrency(Currency.getInstance(currency));
+            String text = format.format(value);
+            textView.setText(text);
+        }
     }
 
     @BindingAdapter({"percentage", "currency"})

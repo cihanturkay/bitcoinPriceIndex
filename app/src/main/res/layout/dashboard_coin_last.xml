@@ -10,11 +10,11 @@
             type="cihan.samples.bitcoinpriceindex.data.model.Coin" />
 
         <variable
-            name="currencySymbol"
+            name="currencyText"
             type="String" />
 
         <variable
-            name="coinSymbol"
+            name="coinText"
             type="String" />
 
     </data>
@@ -34,7 +34,7 @@
             android:gravity="center"
             android:textColor="@android:color/black"
             android:textSize="26sp"
-            app:currency="@{currencySymbol}"
+            app:currency="@{currencyText}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -49,7 +49,7 @@
             android:gravity="center"
             android:textColor="@android:color/black"
             android:textSize="16sp"
-            app:currency="@{currencySymbol}"
+            app:currency="@{currencyText}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/last"
@@ -64,8 +64,6 @@
             android:fontFamily="@font/open_sans_light"
             android:text="@string/today_open"
             app:layout_constraintEnd_toStartOf="@+id/high"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/last_percent" />
 
@@ -76,8 +74,6 @@
             android:fontFamily="@font/open_sans_light"
             android:text="@string/high"
             app:layout_constraintEnd_toStartOf="@+id/bid"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toEndOf="@+id/today_open"
             app:layout_constraintTop_toTopOf="@+id/today_open" />
 
@@ -88,8 +84,6 @@
             android:fontFamily="@font/open_sans_light"
             android:text="@string/bid"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toEndOf="@+id/high"
             app:layout_constraintTop_toTopOf="@+id/today_open" />
 
@@ -99,7 +93,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans"
             android:paddingEnd="8dp"
-            app:currency="@{currencySymbol}"
+            app:currency="@{currencyText}"
             app:layout_constraintEnd_toStartOf="@+id/high_value"
             app:layout_constraintStart_toStartOf="@+id/today_open"
             app:layout_constraintTop_toBottomOf="@+id/today_open"
@@ -112,7 +106,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans"
             android:paddingEnd="12dp"
-            app:currency="@{currencySymbol}"
+            app:currency="@{currencyText}"
             app:layout_constraintEnd_toStartOf="@+id/bid"
             app:layout_constraintStart_toStartOf="@+id/high"
             app:layout_constraintTop_toBottomOf="@+id/high"
@@ -125,7 +119,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans"
-            app:currency="@{currencySymbol}"
+            app:currency="@{currencyText}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/bid"
             app:layout_constraintTop_toBottomOf="@+id/bid"
@@ -141,8 +135,6 @@
             android:fontFamily="@font/open_sans_light"
             android:text="@string/today_volume"
             app:layout_constraintEnd_toStartOf="@+id/high"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/today_open_value" />
 
@@ -153,8 +145,6 @@
             android:fontFamily="@font/open_sans_light"
             android:text="@string/low"
             app:layout_constraintEnd_toStartOf="@+id/bid"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toEndOf="@+id/today_volume"
             app:layout_constraintTop_toTopOf="@+id/today_volume" />
 
@@ -165,8 +155,6 @@
             android:fontFamily="@font/open_sans_light"
             android:text="@string/ask"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toEndOf="@+id/low"
             app:layout_constraintTop_toTopOf="@+id/today_volume" />
 
@@ -176,7 +164,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans"
             android:paddingEnd="8dp"
-            app:currency="@{coinSymbol}"
+            app:currency="@{coinText}"
             app:layout_constraintEnd_toStartOf="@+id/low_value"
             app:layout_constraintStart_toStartOf="@+id/today_volume"
             app:layout_constraintTop_toBottomOf="@+id/today_volume"
@@ -189,7 +177,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans"
             android:paddingEnd="12dp"
-            app:currency="@{currencySymbol}"
+            app:currency="@{currencyText}"
             app:layout_constraintEnd_toStartOf="@+id/ask"
             app:layout_constraintStart_toStartOf="@+id/low"
             app:layout_constraintTop_toBottomOf="@+id/low"
@@ -202,7 +190,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans"
-            app:currency="@{currencySymbol}"
+            app:currency="@{currencyText}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/ask"
             app:layout_constraintTop_toBottomOf="@+id/ask"

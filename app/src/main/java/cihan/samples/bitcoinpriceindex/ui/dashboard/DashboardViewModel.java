@@ -26,11 +26,10 @@ public class DashboardViewModel extends AndroidViewModel {
     private String currency;
     private String coin;
     private String period;
-
+    private String market;
 
     private LiveData<Resource<List<CoinHistory>>> coinHistory;
     private LiveData<Resource<Coin>> coinLast;
-
 
     public DashboardViewModel(@NonNull Application application) {
         super(application);
@@ -53,10 +52,12 @@ public class DashboardViewModel extends AndroidViewModel {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+        refresh();
     }
 
     public void setCoin(String coin) {
         this.coin = coin;
+        refresh();
     }
 
     public void setPeriod(String period) {

@@ -10,6 +10,7 @@ import cihan.samples.bitcoinpriceindex.data.remote.BitcoinAverageApi;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -45,9 +46,9 @@ public class RepoModule {
     @Provides
     OkHttpClient provideOkHttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        //HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        //interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        //builder.addInterceptor(interceptor);
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        builder.addInterceptor(interceptor);
         return builder.build();
     }
 
