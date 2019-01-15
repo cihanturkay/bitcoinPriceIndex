@@ -5,9 +5,11 @@ public class CoinHistory {
     private String time;
     private double average;
 
-    public String getMinute() { return time; }
+    public String getTime() {
+        return time;
+    }
 
-    public void setMinute(String time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

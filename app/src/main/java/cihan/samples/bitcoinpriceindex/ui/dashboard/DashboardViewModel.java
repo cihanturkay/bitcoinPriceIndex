@@ -25,7 +25,7 @@ public class DashboardViewModel extends AndroidViewModel {
     private final MutableLiveData<Boolean> refresh = new MutableLiveData<>();
     private String currency;
     private String coin;
-    private String period;
+    private String period = "monthly";
     private String market;
 
     private LiveData<Resource<List<CoinHistory>>> coinHistory;

@@ -119,6 +119,7 @@ public class DashboardFragment extends Fragment {
                         case LOADING:
                             break;
                         case SUCCESS:
+                            binding.chart.setCoinData(listResource.data);
                             break;
                     }
                 }
