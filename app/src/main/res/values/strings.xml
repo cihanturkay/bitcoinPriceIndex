@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Bitcoin Price Index</string>
+    <string name="app_name">Digital Coins</string>
+    <string name="today_volume">Today Volume</string>
+    <string name="low">Low</string>
+    <string name="ask">Ask</string>
+    <string name="bid">Bid</string>
+    <string name="high">High</string>
+    <string name="today_open">Today Open</string>
 </resources>

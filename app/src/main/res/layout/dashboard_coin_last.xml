@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="coin"
+            type="cihan.samples.bitcoinpriceindex.data.model.Coin" />
+
+        <variable
+            name="currencySymbol"
+            type="String" />
+
+        <variable
+            name="coinSymbol"
+            type="String" />
+
+    </data>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".main.MainActivity">
+
+
+        <TextView
+            android:id="@+id/last"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_extrabold"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="26sp"
+            app:currency="@{currencySymbol}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:value="@{coin.last}"
+            tools:text="9090" />
+
+        <TextView
+            android:id="@+id/last_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:currency="@{currencySymbol}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/last"
+            app:percentage="@{coin}"
+            tools:text="%3.23" />
+
+        <TextView
+            android:id="@+id/today_open"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/open_sans_light"
+            android:text="@string/today_open"
+            app:layout_constraintEnd_toStartOf="@+id/high"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/last_percent" />
+
+        <TextView
+            android:id="@+id/high"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_light"
+            android:text="@string/high"
+            app:layout_constraintEnd_toStartOf="@+id/bid"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toEndOf="@+id/today_open"
+            app:layout_constraintTop_toTopOf="@+id/today_open" />
+
+        <TextView
+            android:id="@+id/bid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_light"
+            android:text="@string/bid"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toEndOf="@+id/high"
+            app:layout_constraintTop_toTopOf="@+id/today_open" />
+
+        <TextView
+            android:id="@+id/today_open_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans"
+            android:paddingEnd="8dp"
+            app:currency="@{currencySymbol}"
+            app:layout_constraintEnd_toStartOf="@+id/high_value"
+            app:layout_constraintStart_toStartOf="@+id/today_open"
+            app:layout_constraintTop_toBottomOf="@+id/today_open"
+            app:value="@{coin.getTodayOpen}"
+            tools:text="9090" />
+
+        <TextView
+            android:id="@+id/high_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans"
+            android:paddingEnd="12dp"
+            app:currency="@{currencySymbol}"
+            app:layout_constraintEnd_toStartOf="@+id/bid"
+            app:layout_constraintStart_toStartOf="@+id/high"
+            app:layout_constraintTop_toBottomOf="@+id/high"
+            app:value="@{coin.high}"
+            tools:fontFamily="@font/open_sans"
+            tools:text="234234.234" />
+
+        <TextView
+            android:id="@+id/bid_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans"
+            app:currency="@{currencySymbol}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/bid"
+            app:layout_constraintTop_toBottomOf="@+id/bid"
+            app:value="@{coin.bid}"
+            tools:text="234234.34" />
+
+
+        <TextView
+            android:id="@+id/today_volume"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/open_sans_light"
+            android:text="@string/today_volume"
+            app:layout_constraintEnd_toStartOf="@+id/high"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/today_open_value" />
+
+        <TextView
+            android:id="@+id/low"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_light"
+            android:text="@string/low"
+            app:layout_constraintEnd_toStartOf="@+id/bid"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toEndOf="@+id/today_volume"
+            app:layout_constraintTop_toTopOf="@+id/today_volume" />
+
+        <TextView
+            android:id="@+id/ask"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_light"
+            android:text="@string/ask"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toEndOf="@+id/low"
+            app:layout_constraintTop_toTopOf="@+id/today_volume" />
+
+        <TextView
+            android:id="@+id/today_volume_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans"
+            android:paddingEnd="8dp"
+            app:currency="@{coinSymbol}"
+            app:layout_constraintEnd_toStartOf="@+id/low_value"
+            app:layout_constraintStart_toStartOf="@+id/today_volume"
+            app:layout_constraintTop_toBottomOf="@+id/today_volume"
+            app:value="@{coin.volume}"
+            tools:text="9090" />
+
+        <TextView
+            android:id="@+id/low_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans"
+            android:paddingEnd="12dp"
+            app:currency="@{currencySymbol}"
+            app:layout_constraintEnd_toStartOf="@+id/ask"
+            app:layout_constraintStart_toStartOf="@+id/low"
+            app:layout_constraintTop_toBottomOf="@+id/low"
+            app:value="@{coin.low}"
+            tools:fontFamily="@font/open_sans"
+            tools:text="234234.234" />
+
+        <TextView
+            android:id="@+id/ask_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans"
+            app:currency="@{currencySymbol}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/ask"
+            app:layout_constraintTop_toBottomOf="@+id/ask"
+            app:value="@{coin.ask}"
+            tools:text="234234.34" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</layout>

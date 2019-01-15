@@ -1,5 +1,7 @@
 package cihan.samples.bitcoinpriceindex.data.model;
 
+import java.util.Map;
+
 public class Coin {
 
     private double ask;
@@ -11,6 +13,7 @@ public class Coin {
     private double volumePercent;
     private long timestamp;
     private String displaySymbol;
+    public Map<String, Double> open;
 
     public Coin() {
     }
@@ -85,6 +88,18 @@ public class Coin {
 
     public void setDisplaySymbol(String displaySymbol) {
         this.displaySymbol = displaySymbol;
+    }
+
+    public Map<String, Double> getOpen() {
+        return open;
+    }
+
+    public void setOpen(Map<String, Double> open) {
+        this.open = open;
+    }
+
+    public double getTodayOpen() {
+        return open != null ? open.get("day") : 0;
     }
 
     @Override

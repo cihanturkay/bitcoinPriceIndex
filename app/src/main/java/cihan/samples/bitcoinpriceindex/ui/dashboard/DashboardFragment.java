@@ -27,6 +27,8 @@ public class DashboardFragment extends Fragment {
     private DashboardViewModel viewModel;
     private Handler handler = new Handler();
 
+    private final static int REFRESH_INTERVAL_SECONDS = 4;
+
     public static DashboardFragment newInstance() {
         DashboardFragment fragment = new DashboardFragment();
         Bundle bundle = new Bundle();
@@ -42,6 +44,8 @@ public class DashboardFragment extends Fragment {
         viewModel.setCoin("BTC");
         viewModel.setCurrency("EUR");
         viewModel.setPeriod("daily");
+        binding.setCurrencySymbol("€");
+        binding.setCoinSymbol("BTC");
         loadCoinLast();
         loadCoinHistory();
         return binding.getRoot();
@@ -52,7 +56,7 @@ public class DashboardFragment extends Fragment {
         public void run() {
             Log.d("DashboardFragment", "refreshing");
             viewModel.refresh();
-            handler.postDelayed(refreshRunnable, TimeUnit.SECONDS.toMillis(10));
+            handler.postDelayed(refreshRunnable, TimeUnit.SECONDS.toMillis(REFRESH_INTERVAL_SECONDS));
         }
     };
 
@@ -97,6 +101,7 @@ public class DashboardFragment extends Fragment {
                         case LOADING:
                             break;
                         case SUCCESS:
+                            binding.setCoin(coinResource.data);
                             Log.d("DashboardFragment", "coin :: " + coinResource.data);
                             break;
                     }
