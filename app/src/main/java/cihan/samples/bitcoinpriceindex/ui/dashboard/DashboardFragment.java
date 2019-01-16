@@ -115,12 +115,15 @@ public class DashboardFragment extends Fragment implements TabLayout.BaseOnTabSe
                 switch (listResource.status) {
                     case ERROR:
                         Toast.makeText(requireContext(), listResource.message, Toast.LENGTH_LONG).show();
+                        binding.setChartLoading(false);
                         break;
                     case LOADING:
+                        binding.setChartLoading(true);
                         break;
                     case SUCCESS:
                         binding.chart.highlightValue(null);
                         binding.chart.setCoinData(listResource.data);
+                        binding.setChartLoading(false);
                         break;
                 }
             }

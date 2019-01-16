@@ -30,7 +30,12 @@ public class DatabindingAdapters {
             double todayOpen = coin.getTodayOpen();
             float percentage = (float) (todayLast / todayOpen - 1.0);
             float change = (float) (todayOpen * percentage);
-            String text = String.format("%.2f%s (%.2f%%)", change, currency, percentage * 100);
+
+            NumberFormat format = NumberFormat.getCurrencyInstance();
+            format.setCurrency(Currency.getInstance(currency));
+            String priceChangeValue = format.format(change);
+
+            String text = String.format("%s (%.2f%%)", priceChangeValue, percentage * 100);
             textView.setText(text);
 
             if (percentage < 0) {

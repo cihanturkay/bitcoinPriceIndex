@@ -2,12 +2,9 @@ package cihan.samples.bitcoinpriceindex.main;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 
 import javax.inject.Inject;
 
@@ -16,7 +13,7 @@ import cihan.samples.bitcoinpriceindex.databinding.ActivityMainBinding;
 import cihan.samples.bitcoinpriceindex.main.utils.AppExecutors;
 import cihan.samples.bitcoinpriceindex.ui.dashboard.DashboardFragment;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     @Inject
     AppExecutors appExecutors;
@@ -28,8 +25,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         ((MainApp) getApplication()).getMainComponent().inject(MainActivity.this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        binding.navigation.setOnNavigationItemSelectedListener(this);
-        binding.navigation.setSelectedItemId(R.id.menu_dashboard);
+        replaceFragment(DashboardFragment.newInstance(), false);
     }
 
 
@@ -43,20 +39,4 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             transaction.addToBackStack(null);
         transaction.commitAllowingStateLoss();
     }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        menuItem.setChecked(true);
-
-        switch (menuItem.getItemId()) {
-            case R.id.menu_dashboard:
-                replaceFragment(DashboardFragment.newInstance(), false);
-                break;
-            case R.id.menu_list:
-                replaceFragment(DashboardFragment.newInstance(), false);
-                break;
-        }
-        return false;
-    }
-
 }
